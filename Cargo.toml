@@ -1,0 +1,9 @@
+[package]
+name = "restful_rust"
+version = "0.1.0"
+authors = ["tbauer428"]
+edition = "2018"
+
+
+[dependencies]
+rocket = "0.4.7"
