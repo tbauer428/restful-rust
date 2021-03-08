@@ -1,0 +1,6 @@
+CREATE TABLE listings (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR NOT NULL,
+  body TEXT NOT NULL,
+  price TEXT NOT NULL DEFAULT '$0.00'
+)
