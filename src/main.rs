@@ -26,8 +26,21 @@ pub fn establish_connection() -> PgConnection {
 }
 
 #[get("/")]
-fn index() -> content::Json<&'static str> {
-    content::Json("{'name': 'keyboard', 'price': '19.99'}")
+fn index() -> String {
+    let connection = establish_connection();
+    
+    use self::schema::listings::dsl::*;
+
+    let results: Vec<Listing> = listings
+        .limit(5)
+        .load::<Listing>(&connection)
+        .expect("Error loading listings");
+
+    println!("Found {} posts", results.len());
+
+    let serialized_result = serde_json::to_string(&results).unwrap().to_owned();
+
+    return serialized_result.to_string();
 }
 
 #[get("/hello/<name>")]
@@ -50,23 +63,7 @@ fn hello_cool(name: String, age: u8, cool: bool) -> String {
 }
 
 fn main() {
-    // rocket::ignite()
-    //     .mount("/", routes![index, hello_name, just_fail, hello_cool])
-    //     .launch();
-    let connection = establish_connection();
-
-    use self::schema::listings::dsl::*;
-
-    let results = listings
-        .filter(title.eq("keyboard"))
-        .limit(5)
-        .load::<Listing>(&connection)
-        .expect("Error loading listings");
-
-    println!("Displaying {} posts", results.len());
-    for listing in results {
-        println!("{}", listing.title);
-        println!("-----------\n");
-        println!("{}", listing.price);
-    }
+    rocket::ignite()
+        .mount("/", routes![index, hello_name, just_fail, hello_cool])
+        .launch();
 }
