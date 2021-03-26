@@ -16,7 +16,7 @@ pub fn create_listing(new_listing: NewListing, conn: &PgConnection) -> QueryResu
 
 pub fn show_posts(connection: &PgConnection) -> QueryResult<Vec<Listing>> {
     //listings.filter(price.eq("$3.00"))
-    listings.limit(5).load::<Listing>(&*connection)
+    listings.limit(500).load::<Listing>(&*connection)
 }
 
 pub fn get_listing(listing_id: i32, connection: &PgConnection) -> QueryResult<Listing> {

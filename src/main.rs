@@ -17,7 +17,7 @@ fn main() {
         .manage(connection::establish_connection())
         .mount(
             "/",
-            routes![index, create, hello_name, just_fail, hello_cool],
+            routes![index, create, just_fail],
         )
         .launch();
 }

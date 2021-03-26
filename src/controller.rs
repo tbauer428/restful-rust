@@ -27,21 +27,7 @@ pub fn create(new_listing: Json<NewListing>, connection: DbConn) -> String {
     return serialized_result;
 }
 
-#[get("/hello/<name>")]
-pub fn hello_name(name: &RawStr) -> String {
-    format!("Hello, {}!", name.as_str())
-}
-
 #[get("/fail")]
 pub fn just_fail() -> Status {
     Status::NotAcceptable
-}
-
-#[get("/hello/<name>/<age>/<cool>")]
-pub fn hello_cool(name: String, age: u8, cool: bool) -> String {
-    if cool {
-        format!("You're a cool {} year old, {}!", age, name)
-    } else {
-        format!("{}, we need to talk about your coolness.", name)
-    }
 }
