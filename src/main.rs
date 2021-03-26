@@ -15,9 +15,6 @@ use controller::*;
 fn main() {
     rocket::ignite()
         .manage(connection::establish_connection())
-        .mount(
-            "/",
-            routes![index, create, just_fail],
-        )
+        .mount("/", routes![index, create, just_fail])
         .launch();
 }

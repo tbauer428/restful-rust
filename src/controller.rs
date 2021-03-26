@@ -1,6 +1,6 @@
 use crate::{connection::DbConn, model::Listing};
 use crate::{model::NewListing, repository::*};
-use rocket::http::{RawStr, Status};
+use rocket::http::Status;
 use rocket_contrib::json::Json;
 
 #[get("/listings")]
