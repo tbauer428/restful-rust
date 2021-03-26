@@ -4,17 +4,16 @@ extern crate rocket;
 #[macro_use]
 extern crate diesel;
 
+pub mod connection;
 pub mod models;
 pub mod schema;
 
 use self::models::*;
-use crate::schema::*;
 
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use dotenv::dotenv;
 use rocket::http::{RawStr, Status};
-use rocket::response::content;
 use std::env;
 
 pub fn establish_connection() -> PgConnection {
@@ -28,7 +27,7 @@ pub fn establish_connection() -> PgConnection {
 #[get("/")]
 fn index() -> String {
     let connection = establish_connection();
-    
+
     use self::schema::listings::dsl::*;
 
     let results: Vec<Listing> = listings
